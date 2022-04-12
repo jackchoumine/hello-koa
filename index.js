@@ -2,7 +2,7 @@
  * @Description : koa demo1
  * @Date        : 2022-04-12 00:07:53 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-04-13 01:25:08 +0800
+ * @LastEditTime: 2022-04-13 01:35:33 +0800
  * @LastEditors : JackChou
  */
 const Koa = require('koa')
@@ -24,13 +24,16 @@ router.get('/test', (ctx) => {
   ctx.redirect('/login')
 })
 
-app.use(async (ctx, next) => {
-  try {
-    await next()
-  } catch (error) {
-    console.log(error)
-    ctx.status = 500
-  }
+// app.use(async (ctx, next) => {
+//   try {
+//     await next()
+//   } catch (error) {
+//     console.log(error)
+//     ctx.status = 500
+//   }
+// })
+app.on('error', (err) => {
+  console.log(err)
 })
 
 // router.get('/error', (ctx) => {
@@ -41,11 +44,12 @@ app.use(async (ctx, next) => {
 app.use(async (ctx, next) => {
   JSON.parse(1)
   // next() //BUG 同步中间件，不能转交异步中间件的执行权
-  // return next()
-  await next()
+  return next()
+  // await next()
 })
 
 app.use(async (ctx, next) => {
+  console.log(age) //undefined
   await next()
   const rt = ctx.response.get('X-Response-Time')
   console.log(`${ctx.method} ${ctx.url} - ${r}`) // NOTE 未定义变量 r

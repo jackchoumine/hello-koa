@@ -259,6 +259,30 @@ app.use(async (ctx, next) => {
 
 同步中间件`return next()` 异步中间件`await next()`
 
+> 使用`app.on(error)` 捕获异常
+
+```js
+app.on('error', (err) => {
+  console.log(err)
+})
+
+app.use(async (ctx, next) => {
+  JSON.parse(1)
+  // next() //BUG 同步中间件，不能转交异步中间件的执行权
+  return next()
+  // await next()
+})
+
+app.use(async (ctx, next) => {
+  console.log(age) //undefined
+  await next()
+  const rt = ctx.response.get('X-Response-Time')
+  console.log(`${ctx.method} ${ctx.url} - ${r}`) // NOTE 未定义变量 r
+})
+```
+
+> 同样要注意中间的 next 用法。
+
 ## 数据库操作
 
 ## 用户认证
