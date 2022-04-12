@@ -298,6 +298,25 @@ app.use(async (ctx, next) => {
 
 > 同样要注意中间的 next 用法。
 
+> 两者结合使用
+
+```js
+app.use(async (ctx, next) => {
+  try {
+    await next()
+  } catch (error) {
+    ctx.status = 500
+    ctx.body = { path: ctx.path, info: error.message, method: ctx.method }
+    // 捕获错误时触发 error 事件
+    ctx.app.emit('error', error, ctx)
+  }
+})
+
+app.on('error', (err, ctx) => {
+  console.log({ path: ctx.path, method: ctx.method, info: err.message })
+})
+```
+
 > 社区的错误处理中间件。
 
 [koa-better-error-handler](https://www.npmjs.com/package/koa-better-error-handler）
