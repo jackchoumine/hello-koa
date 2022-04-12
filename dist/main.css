@@ -1,0 +1,9 @@
+body {
+  background-color: bisque;
+}
+
+#app {
+  background-color: azure;
+  font-size: 20px;
+  color: #000000;
+}
