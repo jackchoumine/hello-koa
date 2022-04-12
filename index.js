@@ -2,7 +2,7 @@
  * @Description : koa demo1
  * @Date        : 2022-04-12 00:07:53 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-04-13 01:35:33 +0800
+ * @LastEditTime: 2022-04-13 01:52:32 +0800
  * @LastEditors : JackChou
  */
 const Koa = require('koa')
@@ -24,17 +24,19 @@ router.get('/test', (ctx) => {
   ctx.redirect('/login')
 })
 
-// app.use(async (ctx, next) => {
-//   try {
-//     await next()
-//   } catch (error) {
-//     console.log(error)
-//     ctx.status = 500
-//   }
-// })
-app.on('error', (err) => {
-  console.log(err)
+app.use(async (ctx, next) => {
+  try {
+    await next()
+  } catch (error) {
+    console.log(error.message)
+    ctx.status = 500
+    ctx.body = { path: ctx.path, info: error.message, method: ctx.method }
+  }
 })
+
+// app.on('error', (err) => {
+//   console.log(err)
+// })
 
 // router.get('/error', (ctx) => {
 //   const data = JSON.parse('')

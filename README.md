@@ -255,6 +255,21 @@ app.use(async (ctx, next) => {
 })
 ```
 
+可自定义错误处理中间件
+
+```js
+app.use(async (ctx, next) => {
+  try {
+    await next()
+  } catch (error) {
+    console.log(error.message)
+    ctx.status = 500
+    // NOTE 课件错误信息报错在数据库中，定期分析原因
+    ctx.body = { path: ctx.path, info: error.message, method: ctx.method }
+  }
+})
+```
+
 > 最佳实践
 
 同步中间件`return next()` 异步中间件`await next()`
@@ -282,6 +297,10 @@ app.use(async (ctx, next) => {
 ```
 
 > 同样要注意中间的 next 用法。
+
+> 社区的错误处理中间件。
+
+[koa-better-error-handler](https://www.npmjs.com/package/koa-better-error-handler）
 
 ## 数据库操作
 
