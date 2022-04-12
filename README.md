@@ -149,6 +149,10 @@ app.use(async (ctx) => {
 
 > 异步中间件
 
+> 中间件合并
+
+`koa-compose`
+
 ### 官方常用中间件
 
 `ctx.redirect` -- 只能处理同步请求。
@@ -194,6 +198,36 @@ app.use(koaStatic('./dist')) //NOTE 静态资源都放在 dist 文件夹下
 `koa-compose`
 
 ### 中间异常处理
+
+```js
+router.get('/error', (ctx) => {
+  try {
+    const data = JSON.parse('')
+    ctx.body = 'hello koa'
+  } catch (error) {
+    console.log(error)
+    ctx.status = 500
+    ctx.body = 'error'
+  }
+})
+```
+
+利用中间件模型捕获所有异常
+
+```js
+app.use(async (ctx, next) => {
+  try {
+    await next() // NOTE 不使用 await 不能捕获异步异常
+  } catch (error) {
+    console.log(error)
+    ctx.status = 500
+  }
+})
+router.get('/error', (ctx) => {
+  const data = JSON.parse('')
+  ctx.body = data
+})
+```
 
 ## 数据库操作
 
