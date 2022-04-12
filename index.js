@@ -2,7 +2,7 @@
  * @Description : koa demo1
  * @Date        : 2022-04-12 00:07:53 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-04-13 00:26:46 +0800
+ * @LastEditTime: 2022-04-13 00:32:08 +0800
  * @LastEditors : JackChou
  */
 const Koa = require('koa')
@@ -12,11 +12,13 @@ const { parsePostData } = require('./src/utils')
 const Router = require('@koa/router')
 const router = new Router()
 
-router.get('/', (ctx, next) => {
+router.get('/:page', (ctx, next) => {
   // ctx.router available
+  ctx.body = 'hello koa ' + ctx.params.page
 })
 
-app.use(router.routes()).use(router.allowedMethods())
+app.use(router.routes())
+//.use(router.allowedMethods())
 
 // ctx 是上下文
 app.use(async (ctx, next) => {

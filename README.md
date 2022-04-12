@@ -157,6 +157,22 @@ app.use(async (ctx) => {
 
 #### 路由中间件
 
+> 基本使用
+
+`npm i @koa/router`
+
+```js
+const Router = require('@koa/router')
+const router = new Router()
+
+router.get('/:page', (ctx, next) => {
+  // ctx.router available
+  ctx.body = 'hello koa ' + ctx.params.page
+})
+
+app.use(router.routes())
+```
+
 #### 静态资源
 
 `koa-static`、`koa-mount`
