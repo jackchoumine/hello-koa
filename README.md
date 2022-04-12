@@ -333,6 +333,10 @@ app.on('error', (err, ctx) => {
 
 ## 部署
 
+## 如何组织一个项目
+
+看社区好的脚手架。
+
 ## 参考
 
 [bilibili 视频](https://www.bilibili.com/video/BV1W64y1h7qi)
