@@ -28,6 +28,39 @@ app.use((ctx) => {
 })
 ```
 
+```bash
+ctx.header # 请求头
+ctx.method # 请求方法
+ctx.path # 请求路径
+ctx.query # 路径查询参数，对象
+ctx.querystring # 路径查询参数，字符串
+ctx.url  # 请求 url
+
+ctx.origin
+ctx.href # 获取完整的请求 URL
+ctx.host
+ctx.hostname
+
+ctx.ip
+ctx.ips
+
+ctx.subdomains
+
+ctx.fresh
+ctx.stale
+
+ctx.is()
+ctx.accepts()
+ctx.acceptsEncodings()
+ctx.acceptsCharsets()
+ctx.acceptsLanguages()
+ctx.get()
+
+ctx.socket
+ctx.protocol
+ctx.secure
+```
+
 post 参数的获取
 
 koa 没有获取 post 请求体的直接方法，可使用中间件或者解析原生的 req。

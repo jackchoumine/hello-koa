@@ -2,7 +2,7 @@
  * @Description : koa demo1
  * @Date        : 2022-04-12 00:07:53 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-04-12 22:58:45 +0800
+ * @LastEditTime: 2022-04-12 23:30:28 +0800
  * @LastEditors : JackChou
  */
 const Koa = require('koa')
@@ -22,13 +22,26 @@ app.use(async (ctx, next) => {
 app.use((ctx) => {
   ctx.type = 'json'
   ctx.body = {
-    url: ctx.request.url,
-    path: ctx.request.path,
     method: ctx.request.method,
+    path: ctx.request.path,
     query: ctx.request.query,
-    params: ctx.params, // undefined 没有路径参数
     querystring: ctx.request.querystring,
+    search: ctx.search,
+    params: ctx.params, // undefined 没有路径参数
     header: ctx.request.header,
+    host: ctx.host,
+    hostname: ctx.hostname,
+    type: ctx.type,
+    charset: ctx.charset,
+    ip: ctx.ip,
+    url: ctx.request.url,
+    href: ctx.href,
+    // 协商
+    fresh: ctx.fresh,
+    //也就是内容没有改变。此方法用于 If-None-Match / ETag, 和 If-Modified-Since 和 Last-Modified 之间的缓存协商。 在设置一个或多个这些响应头后应该引用它。
+    stale: ctx.stale,
+    isJson: ctx.is('application/json'),
+    field: ctx.get('content-type'),
   }
 })
 
