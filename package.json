@@ -11,6 +11,7 @@
   "author": "jackchoumine <jackzhoumine@gmail.com;jackchou4job@163.com>",
   "license": "MIT",
   "dependencies": {
+    "@koa/router": "~10.1.1",
     "koa": "~2.13.4"
   }
 }
