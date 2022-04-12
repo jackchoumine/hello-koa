@@ -313,7 +313,9 @@ app.use(async (ctx, next) => {
 })
 
 app.on('error', (err, ctx) => {
-  console.log({ path: ctx.path, method: ctx.method, info: err.message })
+  // NOTE 开发环境，使用红色在控制台输出错误信息
+  // 生产环境，错误信息错误数据库
+  console.error({ path: ctx.path, method: ctx.method, info: err.message })
 })
 ```
 
