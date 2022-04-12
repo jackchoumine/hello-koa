@@ -229,6 +229,36 @@ router.get('/error', (ctx) => {
 })
 ```
 
+中间件的顺序非常重要：
+
+```js
+app.use(async (ctx, next) => {
+  try {
+    await next()
+  } catch (error) {
+    console.log(error)
+    ctx.status = 500
+  }
+})
+
+app.use(async (ctx, next) => {
+  JSON.parse(1)
+  // next() //BUG 同步中间件，不能转交异步中间件的执行权
+  // return next()
+  await next()
+})
+
+app.use(async (ctx, next) => {
+  await next()
+  const rt = ctx.response.get('X-Response-Time')
+  console.log(`${ctx.method} ${ctx.url} - ${r}`) // NOTE 未定义变量 r
+})
+```
+
+> 最佳实践
+
+同步中间件`return next()` 异步中间件`await next()`
+
 ## 数据库操作
 
 ## 用户认证

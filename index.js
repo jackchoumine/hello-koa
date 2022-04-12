@@ -2,7 +2,7 @@
  * @Description : koa demo1
  * @Date        : 2022-04-12 00:07:53 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-04-13 01:09:41 +0800
+ * @LastEditTime: 2022-04-13 01:25:08 +0800
  * @LastEditors : JackChou
  */
 const Koa = require('koa')
@@ -12,7 +12,7 @@ const koaStatic = require('koa-static')
 const Router = require('@koa/router')
 const router = new Router()
 
-app.use(koaStatic('./dist')) //NOTE 静态资源都放在 dist 文件夹下
+// app.use(koaStatic('./dist')) //NOTE 静态资源都放在 dist 文件夹下
 // 在 html 中这样引入 <link rel="stylesheet" href="/main.css" />
 
 // router.get('/:page', (ctx, next) => {
@@ -32,9 +32,23 @@ app.use(async (ctx, next) => {
     ctx.status = 500
   }
 })
-router.get('/error', (ctx) => {
-  const data = JSON.parse('')
-  ctx.body = data
+
+// router.get('/error', (ctx) => {
+//   const data = JSON.parse('')
+//   ctx.body = data
+// })
+
+app.use(async (ctx, next) => {
+  JSON.parse(1)
+  // next() //BUG 同步中间件，不能转交异步中间件的执行权
+  // return next()
+  await next()
+})
+
+app.use(async (ctx, next) => {
+  await next()
+  const rt = ctx.response.get('X-Response-Time')
+  console.log(`${ctx.method} ${ctx.url} - ${r}`) // NOTE 未定义变量 r
 })
 
 app.use(router.routes())
