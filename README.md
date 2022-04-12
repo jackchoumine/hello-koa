@@ -151,9 +151,13 @@ app.use(async (ctx) => {
 
 ### 官方常用中间件
 
-重定向
-
 `ctx.redirect` -- 只能处理同步请求。
+
+```js
+router.get('/test', (ctx) => {
+  ctx.redirect('/login')
+})
+```
 
 #### 路由中间件
 

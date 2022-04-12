@@ -2,7 +2,7 @@
  * @Description : koa demo1
  * @Date        : 2022-04-12 00:07:53 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-04-13 00:39:29 +0800
+ * @LastEditTime: 2022-04-13 00:48:51 +0800
  * @LastEditors : JackChou
  */
 const Koa = require('koa')
@@ -15,11 +15,14 @@ const router = new Router()
 app.use(koaStatic('./dist')) //NOTE 静态资源都放在 dist 文件夹下
 // 在 html 中这样引入 <link rel="stylesheet" href="/main.css" />
 
-router.get('/:page', (ctx, next) => {
-  // ctx.router available
-  ctx.body = 'hello koa ' + ctx.params.page
-})
+// router.get('/:page', (ctx, next) => {
+//   // ctx.router available
+//   ctx.body = 'hello koa ' + ctx.params.page
+// })
 
+router.get('/test', (ctx) => {
+  ctx.redirect('/login')
+})
 app.use(router.routes())
 //.use(router.allowedMethods())
 
