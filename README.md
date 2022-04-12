@@ -177,6 +177,12 @@ app.use(router.routes())
 
 `koa-static`、`koa-mount`
 
+```js
+const koaStatic = require('koa-static')
+app.use(koaStatic('./dist')) //NOTE 静态资源都放在 dist 文件夹下
+// 在 html 中这样引入 <link rel="stylesheet" href="/main.css" />
+```
+
 #### 中间件原理
 
 #### 中间件组合
