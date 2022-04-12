@@ -139,6 +139,8 @@ app.use(async (ctx) => {
 
 `res.statusCode `、`res.writeHead()`、 `res.write()`、 `res.end()`
 
+> <!-- BUG --> 缓存管理
+
 ## 中间件
 
 `koa.use(middleware)`
