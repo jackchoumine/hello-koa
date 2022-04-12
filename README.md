@@ -93,6 +93,42 @@ app.use(async (ctx) => {
 
 `ctx.status`、`ctx.message` 设置响应状态。
 
+常见的状态
+
+```bash
+200 OK # 请求成功
+201 Created # 新建成功 常用 rest api post 新建资源
+204 No Content #请求成功，无内容方，常用 rest api delete 删除资源
+# NOTE 实际开发中，每次请求都会给前端返回信息 200 201 已经够用
+```
+
+```bash
+304 "not modified" # 资源没更新
+303 "see other" # 通常作为 PUT 或 POST 操作的返回结果，它表示重定向链接指向的不是新上传的资源，而是另外一个页面，比如消息确认页面或上传进度页面。 重定向请求使用 GET
+307 "temporary redirect" # 临时重定向 原始请求中的请求方法和消息主体会在重定向请求中被重用。
+308 "permanent redirect" # 永久重定向，浏览器会跳转 请求方法和消息主体不会发生改变
+```
+
+4xx
+
+```bash
+400 Bad Request # 错误请求，往往参数验证不通过
+404 Not Found # 资源或者路径不存在
+405 Method Not Allowed # 请求方法错误
+401 Unauthorized # 需要认证身份
+403 Forbidden # 禁止访问，可能权限不够
+402 Payment Required # 要求付款
+```
+
+5xx
+
+```bash
+500 Internal Server error # 服务器错误
+502 Bad Gateway # 上游服务器出错
+503 Service Unavailable # 服务无法提供
+504 gateway Timeout # 网关错误
+```
+
 `ctx.redirect()`重定向。
 
 `ctx.state`、`ctx.app`、`ctx.cookies`、`ctx.throw`
