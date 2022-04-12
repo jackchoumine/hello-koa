@@ -2,7 +2,7 @@
  * @Description :
  * @Date        : 2022-04-12 22:47:20 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-04-12 22:48:55 +0800
+ * @LastEditTime: 2022-04-12 22:57:28 +0800
  * @LastEditors : JackChou
  */
 
@@ -13,7 +13,12 @@ function parsePostData(req) {
       postData += chunk.toString()
     })
     req.on('end', () => {
-      resolve(JSON.parse(postData))
+      try {
+        const data = JSON.parse(postData ? postData : '{}')
+        resolve(data)
+      } catch (error) {
+        reject(error)
+      }
     })
   })
 }

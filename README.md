@@ -16,14 +16,15 @@ get 参数的获取
 ```js
 app.use((ctx) => {
   ctx.type = 'json'
-  ctx.body = JSON.stringify({
+  ctx.body = {
     url: ctx.request.url,
+    path: ctx.request.path,
     method: ctx.request.method,
     query: ctx.request.query,
     params: ctx.params, // undefined 没有路径参数
     querystring: ctx.request.querystring,
     header: ctx.request.header,
-  })
+  }
 })
 ```
 
@@ -53,9 +54,21 @@ app.use(async (ctx) => {
 
 > 获取请求 `ctx.response` -- 是 node response 的抽象
 
+`ctx.type` 设置响应格式。
+
+`ctx.body` 设置响应数据。
+
+`ctx.status`、`ctx.message` 设置响应状态。
+
+`ctx.redirect()`重定向。
+
 `ctx.state`、`ctx.app`、`ctx.cookies`、`ctx.throw`
 
 > `ctx.req`、`ctx.res`、`ctx.originalUrl` 是 node 中原色的请求、响应和路径，对原生的属性操作，无效。
+
+绕过 Koa 的 response 处理是 不被支持的. 应避免使用以下 node 属性：
+
+`res.statusCode `、`res.writeHead()`、 `res.write()`、 `res.end()`
 
 ## 中间件
 
