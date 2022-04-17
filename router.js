@@ -1,6 +1,9 @@
 const Koa = require('koa')
 const app = new Koa()
 
+const bodyParer = require('koa-bodyparser')
+app.use(bodyParer())
+
 const Router = require('koa-router')
 const router = new Router()
 
@@ -44,8 +47,23 @@ console.log(user2) // /user/123
 // 嵌套路由
 const post = new Router()
 post.get('/', (ctx) => {
-  ctx.body = 'router2'
+  ctx.type = 'html'
+  ctx.body = /*html*/ `
+    <form action="/register" method="post">
+        <input name="name" type="text" placeholder="请输入用户名：ikcamp"/> 
+        <br/>
+        <input name="password" type="text" placeholder="请输入密码：123456"/>
+        <br/> 
+        <button>GoGoGo</button>
+    </form>`
 })
+
+post.post('/register', (ctx) => {
+  console.log(ctx.request.body)
+  ctx.type = 'html'
+  ctx.body = /*html*/ `<h1>注册成功</h1>`
+})
+
 post.get('/:id', (ctx) => {
   console.log(ctx.params)
   ctx.body = 'router2 ' + ctx.params.id
