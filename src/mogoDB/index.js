@@ -2,7 +2,7 @@
  * @Description : mongoDB 连接
  * @Date        : 2022-04-14 21:41:05 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-04-14 22:50:56 +0800
+ * @LastEditTime: 2022-04-14 23:07:05 +0800
  * @LastEditors : JackChou
  */
 const mongoose = require('mongoose')
@@ -21,6 +21,14 @@ db.on('open', () => {
   console.log('connected to mongoDB')
 })
 
+// 1. 合法数据验证
+// 2. 业务验证，比如用户名重复
+
+// 常见验证库： validator.js
+// https://www.npmjs.com/package/validator
+// koa-validator
+// koa 使用 https://github.com/sideway/joi#readme
+// 4. 数据写入前会根据 Schema 验证数据
 const user = new User({
   username: 'Jack',
   password: '123456',

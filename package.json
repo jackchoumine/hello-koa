@@ -11,9 +11,11 @@
   "author": "jackchoumine <jackzhoumine@gmail.com;jackchou4job@163.com>",
   "license": "MIT",
   "dependencies": {
+    "@hapi/boom": "~9.1.4",
     "@koa/router": "~10.1.1",
     "dotenv": "~16.0.0",
     "koa": "~2.13.4",
+    "koa-router": "~10.1.1",
     "koa-static": "~5.0.0",
     "mongoose": "~6.2.11",
     "mssql": "~8.1.0"
