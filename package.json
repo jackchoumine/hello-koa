@@ -19,6 +19,7 @@
     "koa-nunjucks-2": "~3.0.2",
     "koa-router": "~10.1.1",
     "koa-static": "~5.0.0",
+    "log4js": "~6.4.5",
     "mongoose": "~6.2.11",
     "mssql": "~8.1.0"
   }

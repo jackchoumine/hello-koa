@@ -403,6 +403,69 @@ app.on('error', (err, ctx) => {
 
 ## 日志管理
 
+挂载到 ctx:
+
+```js
+/*
+ * @Description :
+ * @Date        : 2022-04-18 21:21:13 +0800
+ * @Author      : JackChou
+ * @LastEditTime: 2022-04-18 21:38:21 +0800
+ * @LastEditors : JackChou
+ */
+const log4js = require('log4js')
+
+const methods = ['debug', 'info', 'warn', 'error', 'fatal']
+
+module.exports = (options) => {
+  return async (ctx, next) => {
+    const contextLogger = {}
+    const start = Date.now()
+    // NOTE 日志文件产生的位置就是当前启动环境的位置。
+    log4js.configure({
+      appenders: { cheese: { type: 'file', filename: 'cheese.log' } },
+      categories: { default: { appenders: ['cheese'], level: 'info' } },
+    })
+
+    // 不同级别的日志函数
+    const logger = log4js.getLogger('cheese')
+
+    methods.forEach((method) => {
+      contextLogger[method] = (message) => {
+        logger[method](message)
+      }
+    })
+    // NOTE 在 ctx 上挂载日志方法
+    ctx.log = contextLogger
+    await next()
+    const end = Date.now()
+    const responseTime = end - start
+    logger.info(`响应时间为${responseTime / 1000}s`)
+  }
+}
+```
+
+这样使用：
+
+```js
+module.exports = async (ctx, next) => {
+  // NOTE bind 的用法
+  ctx.sendJson = render.bind(ctx)
+  ctx.log.error('something wrong')
+  await next()
+}
+// 或者在 controller 中
+ctx.log.info('homePage')
+```
+
+> 日志切割
+
+按照日期切割日志文件。
+
+[log 日志中间件](https://github.com/ikcamp/koa2-tutorial/tree/8-mi-log)
+
+[log4js](https://github.com/log4js-node/log4js-node)
+
 ## 测试
 
 ## 部署

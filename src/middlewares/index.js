@@ -2,7 +2,7 @@
  * @Description : 中间件出口文件
  * @Date        : 2022-04-18 19:49:30 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-04-18 21:07:32 +0800
+ * @LastEditTime: 2022-04-18 21:24:11 +0800
  * @LastEditors : JackChou
  */
 const path = require('path')
@@ -14,6 +14,7 @@ const koaStatic = require('koa-static')
 // 在 html 中这样引入 <link rel="stylesheet" href="/main.css" />
 
 const sendJson = require('./sendJson')
+const logger = require('./mid-log')
 
 async function handleError(ctx, next) {
   try {
@@ -27,6 +28,8 @@ async function handleError(ctx, next) {
 
 module.exports = (app) => {
   app.use(handleError)
+
+  app.use(logger())
 
   app.use(bodyParer())
   app.use(sendJson)
