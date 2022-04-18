@@ -2,7 +2,7 @@
  * @Description : koa demo1
  * @Date        : 2022-04-12 00:07:53 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-04-18 20:34:50 +0800
+ * @LastEditTime: 2022-04-18 20:54:46 +0800
  * @LastEditors : JackChou
  */
 const path = require('path')
@@ -32,7 +32,8 @@ app.use(
 
 app.use(bodyParer())
 app.use(middlewares.handleError)
-
+app.use(middlewares.sendJson)
+// console.log(middlewares.sendJson)
 app.on('error', (err, ctx) => {
   console.log({ path: ctx.path, method: ctx.method, info: err.message })
 })

@@ -15,12 +15,13 @@ async function homePage(ctx) {
 async function register(ctx) {
   const { name: inputName, password: inputPassword } = ctx.request.body
   const { name } = await findUser(inputName, inputPassword)
-  if (name !== inputName) {
+  if (Math.random() > 0.7) {
     // 用户名不存在
     ctx.type = 'html'
     ctx.body = /*html*/ `<h1>注册成功</h1>`
   } else {
     // 用户名存在
+    ctx.sendJson({ message: '用户名已存在' })
   }
 }
 

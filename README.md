@@ -248,6 +248,24 @@ app.use(
 
 #### 中间件原理
 
+> 一个返回 json 的中间
+
+```js
+// NOTE 编写一个返回json 的中间件
+function render(Obj) {
+  this.set('Content-Type', 'application/json')
+  this.body = JSON.stringify(Obj)
+}
+
+module.exports = async (ctx, next) => {
+  // NOTE bind 的用法
+  ctx.sendJson = render.bind(ctx)
+  await next()
+}
+// 使用
+ctx.sendJson({ message: '用户名已存在' })
+```
+
 #### 中间件组合
 
 `koa-compose`
