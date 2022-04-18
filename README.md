@@ -165,12 +165,14 @@ router.get('/test', (ctx) => {
 
 #### 路由中间件
 
-> 基本使用
+> 安装依赖
 
-`npm i @koa/router`
+`npm i koa-router`
+
+> 基础使用
 
 ```js
-const Router = require('@koa/router')
+const Router = require('koa-router')
 const router = new Router()
 
 router.get('/:page', (ctx, next) => {
@@ -179,6 +181,22 @@ router.get('/:page', (ctx, next) => {
 })
 
 app.use(router.routes())
+```
+
+> 获取 post 请求提交的数据
+
+使用 `koa-bodyparser` 中间件：`npm i koa-bodyparser`
+
+```js
+const bodyParer = require('koa-bodyparser')
+app.use(bodyParer())
+
+// ……
+post.post('/register', (ctx) => {
+  console.log(ctx.request.body)
+  ctx.type = 'html'
+  ctx.body = /*html*/ `<h1>注册成功</h1>`
+})
 ```
 
 #### 静态资源
@@ -340,3 +358,7 @@ app.on('error', (err, ctx) => {
 ## 参考
 
 [bilibili 视频](https://www.bilibili.com/video/BV1W64y1h7qi)
+
+[Node+Koa2 从零搭建通用 API 服务](https://www.bilibili.com/video/BV13A411w79h/?p=3&spm_id_from=pageDriver)
+
+[ikcamp 视频](https://www.bilibili.com/video/BV1fx411L7iv?p=4)
