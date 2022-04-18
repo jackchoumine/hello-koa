@@ -2,7 +2,7 @@
  * @Description : koa demo1
  * @Date        : 2022-04-12 00:07:53 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-04-18 21:08:17 +0800
+ * @LastEditTime: 2022-04-18 22:57:31 +0800
  * @LastEditors : JackChou
  */
 const Koa = require('koa')
@@ -10,10 +10,6 @@ const app = new Koa()
 
 const router = require('./src/routers')
 const middlewares = require('./src/middlewares')
-
-app.on('error', (err, ctx) => {
-  console.log({ path: ctx.path, method: ctx.method, info: err.message })
-})
 
 // 集中管理中间件
 middlewares(app)

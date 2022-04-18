@@ -2,7 +2,7 @@
  * @Description : 中间件出口文件
  * @Date        : 2022-04-18 19:49:30 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-04-18 22:46:42 +0800
+ * @LastEditTime: 2022-04-18 22:58:49 +0800
  * @LastEditors : JackChou
  */
 const path = require('path')
@@ -30,6 +30,11 @@ async function handleError(ctx, next) {
 module.exports = (app) => {
   // app.use(httpError())
   app.use(handleError)
+
+  app.on('error', (err, ctx) => {
+    console.log(err.stack)
+    ctx.log.error(err.message)
+  })
 
   app.use(
     logger({
