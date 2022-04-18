@@ -224,6 +224,28 @@ app.use(koaStatic('./dist')) //NOTE 静态资源都放在 dist 文件夹下
 // 在 html 中这样引入 <link rel="stylesheet" href="/main.css" />
 ```
 
+### 使用模板引擎
+
+安装：`npm i koa-nunjucks-2`
+
+```js
+const nunjucks = require('koa-nunjucks-2')
+
+app.use(
+  nunjucks({
+    ext: 'html',
+    path: path.join(__dirname, './src/views'), // 指定视图目录
+    nunjucksConfig: {
+      trimBlocks: true, // 开启转义 防Xss
+    },
+  }),
+)
+```
+
+> 希望压缩模板引擎？
+
+<!-- BUG -->
+
 #### 中间件原理
 
 #### 中间件组合

@@ -2,21 +2,14 @@
  * @Description :
  * @Date        : 2022-04-18 19:43:18 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-04-18 20:05:42 +0800
+ * @LastEditTime: 2022-04-18 20:23:22 +0800
  * @LastEditors : JackChou
  */
 
 const { findUser } = require('../services')
-function homePage(ctx) {
-  ctx.type = 'html'
-  ctx.body = /*html*/ `
-    <form action="/register" method="post">
-        <input name="name" type="text" placeholder="请输入用户名"/> 
-        <br/>
-        <input name="password" type="text" placeholder="请输入密码"/>
-        <br/>
-        <button>GoGoGo</button>
-    </form>`
+async function homePage(ctx) {
+  // 需要读取文件，使用 await
+  await ctx.render('home', { buttonText: '提交' })
 }
 
 async function register(ctx) {
