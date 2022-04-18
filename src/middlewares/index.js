@@ -2,7 +2,7 @@
  * @Description : 中间件出口文件
  * @Date        : 2022-04-18 19:49:30 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-04-18 22:58:49 +0800
+ * @LastEditTime: 2022-04-18 23:59:00 +0800
  * @LastEditors : JackChou
  */
 const path = require('path')
@@ -17,6 +17,9 @@ const koaStatic = require('koa-static')
 const sendJson = require('./sendJson')
 const logger = require('./mid-log')
 const httpError = require('./mi-http-error')
+
+const serverTime = require('./serverTime')
+
 async function handleError(ctx, next) {
   try {
     await next()
@@ -29,6 +32,7 @@ async function handleError(ctx, next) {
 
 module.exports = (app) => {
   // app.use(httpError())
+  app.use(serverTime())
   app.use(handleError)
 
   app.on('error', (err, ctx) => {
