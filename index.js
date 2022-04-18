@@ -2,7 +2,7 @@
  * @Description : koa demo1
  * @Date        : 2022-04-12 00:07:53 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-04-18 20:19:33 +0800
+ * @LastEditTime: 2022-04-18 20:34:50 +0800
  * @LastEditors : JackChou
  */
 const path = require('path')
@@ -13,9 +13,10 @@ const nunjucks = require('koa-nunjucks-2')
 const router = require('./src/routers')
 const middlewares = require('./src/middlewares')
 // const { parsePostData } = require('./src/utils')
-// const koaStatic = require('koa-static')
+const koaStatic = require('koa-static')
 
-// app.use(koaStatic('./dist')) //NOTE 静态资源都放在 dist 文件夹下
+//NOTE dist 目录下有 index.html，访问 /  会渲染这个文件
+app.use(koaStatic('./dist')) //NOTE 静态资源都放在 dist 文件夹下
 // 在 html 中这样引入 <link rel="stylesheet" href="/main.css" />
 
 // NOTE nunjucks 配置
