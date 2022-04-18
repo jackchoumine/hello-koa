@@ -397,6 +397,8 @@ app.on('error', (err, ctx) => {
 
 [koa-better-error-handler](https://www.npmjs.com/package/koa-better-error-handler）
 
+[处理错误请求](https://github.com/ikcamp/koa2-tutorial/tree/9-mi-http-error)
+
 ## 数据库操作
 
 ## 用户认证
