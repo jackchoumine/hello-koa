@@ -527,6 +527,28 @@ module.exports = (options) => {
 }
 ```
 
+日志错误处理:
+
+```js
+const logger = require('./logger')
+
+module.exports = (options) => {
+  const loggerMiddleware = logger(options)
+
+  // 日志错误处理
+  return (ctx, next) => {
+    return loggerMiddleware(ctx, next).catch((e) => {
+      if (ctx.status < 500) {
+        ctx.status = 500
+      }
+      ctx.log.error(e.stack)
+      ctx.state.logged = true
+      ctx.throw(e)
+    })
+  }
+}
+```
+
 [log 日志中间件](https://github.com/ikcamp/koa2-tutorial/tree/8-mi-log)
 
 [log4js](https://github.com/log4js-node/log4js-node)

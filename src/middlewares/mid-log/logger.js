@@ -2,23 +2,28 @@
  * @Description :
  * @Date        : 2022-04-18 21:21:13 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-04-18 22:10:13 +0800
+ * @LastEditTime: 2022-04-18 22:26:05 +0800
  * @LastEditors : JackChou
  */
 const log4js = require('log4js')
 const access = require('./access')
-
 const methods = ['debug', 'info', 'warn', 'error', 'fatal']
 
-module.exports = (options) => {
+module.exports = (options = {}) => {
   const contextLogger = {}
 
   const defaultInfo = {
     env: 'dev',
     dir: 'logs',
-    appLogLevel: 'info',
+    level: 'info',
+    projectName: 'hello-koa',
+    serverIp: '0.0.0.0',
   }
-  const { env, dir, appLogLevel } = defaultInfo
+
+  const opts = Object.assign({}, defaultInfo, options)
+  // 需要的变量解构 方便使用
+  const { env, level, dir, serverIp, projectName } = opts
+  const commonInfo = { projectName, serverIp }
 
   const appenders = {
     cheese: {
@@ -42,7 +47,7 @@ module.exports = (options) => {
     categories: {
       default: {
         appenders: Object.keys(appenders),
-        level: appLogLevel,
+        level,
       },
     },
   }
@@ -56,7 +61,7 @@ module.exports = (options) => {
     log4js.configure(config)
     methods.forEach((method) => {
       contextLogger[method] = (message) => {
-        logger[method](access(ctx, message, {}))
+        logger[method](access(ctx, message, commonInfo))
       }
     })
     // NOTE 在 ctx 上挂载日志方法
@@ -64,6 +69,6 @@ module.exports = (options) => {
     await next()
     const end = Date.now()
     const responseTime = end - start
-    logger.info(access(ctx, `响应时间为${responseTime / 1000}s`))
+    logger.info(access(ctx, `响应时间为${responseTime / 1000}s`, commonInfo))
   }
 }

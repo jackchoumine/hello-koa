@@ -2,10 +2,11 @@
  * @Description : 中间件出口文件
  * @Date        : 2022-04-18 19:49:30 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-04-18 21:24:11 +0800
+ * @LastEditTime: 2022-04-18 22:21:35 +0800
  * @LastEditors : JackChou
  */
 const path = require('path')
+const ip = require('ip')
 const bodyParer = require('koa-bodyparser')
 const nunjucks = require('koa-nunjucks-2')
 // const { parsePostData } = require('./src/utils')
@@ -29,7 +30,15 @@ async function handleError(ctx, next) {
 module.exports = (app) => {
   app.use(handleError)
 
-  app.use(logger())
+  app.use(
+    logger({
+      env: app.env,
+      dir: 'logs',
+      level: 'info',
+      projectName: 'hello-world',
+      serverIp: ip.address(),
+    }),
+  )
 
   app.use(bodyParer())
   app.use(sendJson)
