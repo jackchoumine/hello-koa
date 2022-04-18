@@ -559,6 +559,8 @@ module.exports = (options) => {
 
 ## 部署
 
+[规范和部署](https://github.com/ikcamp/koa2-tutorial/tree/10-mi-rule)
+
 ## 如何组织一个项目
 
 看社区好的脚手架。
